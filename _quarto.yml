@@ -6,11 +6,11 @@ execute:
   echo: true
 
 book:
-  title: "YOUR PROJECT TITLE"
+  title: "Media Coverage on Israel-Palestine Conflict"
   author:
-    - AUTHOR1 (UNI1)
-    - AUTHOR2 (UNI2)
-  repo-url: https://github.com/YOUR_GITHUB_ACCOUNT/REPO_NAME
+    - Tanya Lim (UNI)
+    - Ernest Salim (es4281)
+  repo-url: https://github.com/Nesto17/israel-palestine-media-analysis
   date: today
   page-footer:
     right: |
@@ -25,7 +25,7 @@ book:
 
 format:
   html:
-    theme: cosmo
+    theme: lux
     code-fold: true
 
 
