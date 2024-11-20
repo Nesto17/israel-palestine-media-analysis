@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Media Coverage on Israel-Palestine Conflict",
     "section": "",
-    "text": "1 Introduction",
+    "text": "1 Introduction\nThis project seeks to uncover how media narratives surrounding the Israel-Palestine conflict shape public perception and expose the dangers of misinformation. By analyzing textual data from Reddit, alongside a timeline of conflicts and fatalities, we aim to explore how information is framed, disseminated, and amplified. The focus will be on identifying patterns of misinformation, sensationalism, and bias that distort public understanding of key events.\nOur analysis will delve into how specific narratives gain traction, the role of influential accounts in propagating unverified claims, and the distinct ways different platforms approach discussions on the conflict. A key aspect of this study involves examining the temporal relationship between real-world events and media coverage, assessing how misinformation emerges during moments of heightened tension or significant fatalities.\nThrough sentiment analysis, topic modeling, and engagement metrics, we will explore how emotionally charged or misleading content influences online discourse. By doing so, we aim to highlight the critical need for accountability in media reporting and the risks posed by unchecked misinformation, including its potential to exacerbate conflicts, deepen societal polarization, and hinder informed decision-making.\nThis framework outlines our approach to the project and serves as our starting point. While the ideas presented here provide a foundational guide, they may evolve as new insights emerge during the course of our analysis.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
@@ -14,7 +14,7 @@
     "href": "data.html",
     "title": "2  Data",
     "section": "",
-    "text": "2.1 Description",
+    "text": "2.1 Description\nThis project draws on the IsamasRed dataset, a compiled collection of discussions on Reddit related to the Israel-Palestine conflict. Covering the period from August to November 2023, the dataset spans approximately 400,000 conversations and over 8 million comments. Using a large language model for keyword extraction, the dataset captures relevant discourse with a high degree of precision.\nThe data includes metadata fields such as timestamps, subreddit names, comment IDs, anonymized user IDs, comment text, and engagement metrics like upvotes and replies. The structured format allows us to analyse trends over time and across subreddits. Its temporal coverage coincides with key moments in the conflict, making it ideal for examining the evolution of narratives and misinformation.\nHowever, there are limitations to note. Reddit’s community-driven nature introduces potential bias, as discussions may reflect the dominant ideologies of specific subreddits. Additionally, some data fields, such as engagement metrics, exhibit missing values due to moderation policies or content deletions. Despite these challenges, the dataset provides a robust foundation for exploring sentiment trends, misinformation spread, and the dynamics of online discourse.\nTo ensure a streamlined workflow, we plan to import the dataset using Python libraries such as pandas for data manipulation and sqlite3 for efficient querying. The dataset is publicly available on a GitHub repository and can be accessed via this link:",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Data</span>"
     ]
@@ -24,7 +24,7 @@
     "href": "data.html#missing-value-analysis",
     "title": "2  Data",
     "section": "2.2 Missing value analysis",
-    "text": "2.2 Missing value analysis",
+    "text": "2.2 Missing value analysis\nThe main source of the web-scraped Reddit conversations are not entirely publicized by the author. The only accessible data from the repository is the small sample that was extracted from the larger dataset. As we’re in the process requesting the full scale dataset from the author, expect the analysis of the dataset will be updated soon.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Data</span>"
     ]

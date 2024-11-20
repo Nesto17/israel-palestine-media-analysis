@@ -178,9 +178,14 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="description" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="description"><span class="header-section-number">2.1</span> Description</h2>
+<p>This project draws on the IsamasRed dataset, a compiled collection of discussions on Reddit related to the Israel-Palestine conflict. Covering the period from August to November 2023, the dataset spans approximately 400,000 conversations and over 8 million comments. Using a large language model for keyword extraction, the dataset captures relevant discourse with a high degree of precision.</p>
+<p>The data includes metadata fields such as timestamps, subreddit names, comment IDs, anonymized user IDs, comment text, and engagement metrics like upvotes and replies. The structured format allows us to analyse trends over time and across subreddits. Its temporal coverage coincides with key moments in the conflict, making it ideal for examining the evolution of narratives and misinformation.</p>
+<p>However, there are limitations to note. Reddit’s community-driven nature introduces potential bias, as discussions may reflect the dominant ideologies of specific subreddits. Additionally, some data fields, such as engagement metrics, exhibit missing values due to moderation policies or content deletions. Despite these challenges, the dataset provides a robust foundation for exploring sentiment trends, misinformation spread, and the dynamics of online discourse.</p>
+<p>To ensure a streamlined workflow, we plan to import the dataset using Python libraries such as pandas for data manipulation and sqlite3 for efficient querying. The dataset is publicly available on a GitHub repository and can be accessed via this link:</p>
 </section>
 <section id="missing-value-analysis" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</h2>
+<p>The <a href="https://github.com/kaichen23/israel-hamas?tab=readme-ov-file">main source</a> of the web-scraped Reddit conversations are not entirely publicized by the author. The only accessible data from the repository is the small sample that was extracted from the larger dataset. As we’re in the process requesting the full scale dataset from the author, expect the analysis of the dataset will be updated soon.</p>
 
 
 </section>

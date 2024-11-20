@@ -8,7 +8,7 @@ execute:
 book:
   title: "Media Coverage on Israel-Palestine Conflict"
   author:
-    - Tanya Lim (UNI)
+    - Tanya Lim (tjl2150)
     - Ernest Salim (es4281)
   repo-url: https://github.com/Nesto17/israel-palestine-media-analysis
   date: today
