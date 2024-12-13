@@ -1,8 +1,3 @@
-
-## Media Coverage on Israel-Palestine Conflict
-
----
-
 # Overview
 
 This project is part of our Columbia's MS Data Science's Exploratory Data Analysis and Visualization (EDAV) course. It focuses on analyzing Reddit discussions during the Israel-Hamas conflict of 2023 to understand how significant global events influence online discourse. Using the IsamasRed dataset, we explored temporal trends, engagement metrics, and thematic conversations across subreddits. The repository is structured to allow for reproducibility and ease of exploration, with each section of the analysis documented in Quarto files (.qmd) and outputs.
