@@ -2,14 +2,87 @@
 
 ## Description
 
-This project draws on the IsamasRed dataset, a compiled collection of discussions on Reddit related to the Israel-Palestine conflict. Covering the period from August to November 2023, the dataset spans approximately 400,000 conversations and over 8 million comments. Using a large language model for keyword extraction, the dataset captures relevant discourse with a high degree of precision.
+For this project, we used the IsamasRed dataset, a publicly available dataset that tracks Reddit discussions on the Israel-Hamas conflict from August 2023 to November 2023. This dataset was compiled by researchers Kai Chen, Zihao He, Keith Burghardt, Jingxin Zhang, and Kristina Lerman. It includes nearly 400,000 conversations and over 8 million comments across Reddit, capturing the public discourse surrounding this event.
 
-The data includes metadata fields such as timestamps, subreddit names, comment IDs, anonymized user IDs, comment text, and engagement metrics like upvotes and replies. The structured format allows us to analyse trends over time and across subreddits. Its temporal coverage coincides with key moments in the conflict, making it ideal for examining the evolution of narratives and misinformation.
+The data collection process used a keyword extraction framework powered by GPT-4 to ensure coverage of relevant discussions. The dataset provides detailed attributes for submissions, comments, and conversations, such as subreddit names, authors, timestamps, scores, upvotes, controversy markers, and thematic labels like “FreePalestine&Islamophobia” or “Zionism&Antisemitism.” This structure enabled us to analyze the relationship between discussion topics, engagement patterns, and user behaviors.
 
-However, there are limitations to note. Reddit’s community-driven nature introduces potential bias, as discussions may reflect the dominant ideologies of specific subreddits. Additionally, some data fields, such as engagement metrics, exhibit missing values due to moderation policies or content deletions. Despite these challenges, the dataset provides a robust foundation for exploring sentiment trends, misinformation spread, and the dynamics of online discourse.
+The data is stored in JSON format and was last updated in January 2024. Due to its large size, we contacted the authors directly to access the full dataset, as it was too big to host on our own repository. We encountered file size issues, particularly with the comments.csv file, which we addressed by resampling the data to 500,000 rows for comments and 50,000 rows for conversations. This resampling retained the time-based proportions, ensuring that trend lines remained accurate for analysis. 
 
-To ensure a streamlined workflow, we plan to import the dataset using Python libraries such as pandas for data manipulation and sqlite3 for efficient querying. The dataset is publicly available on a GitHub repository and can be accessed via this link:
+The dataset can be accessed via
 
-## Missing value analysis
+1. Submissions - https://edav-final-project.s3.us-east-2.amazonaws.com/submissions.csv
+2. Comments - https://edav-final-project.s3.us-east-2.amazonaws.com/comments.csv
+3. Conversations - https://edav-final-project.s3.us-east-2.amazonaws.com/conversations.csv
 
-The [main source](https://github.com/kaichen23/israel-hamas?tab=readme-ov-file) of the web-scraped Reddit conversations are not entirely publicized by the author. The only accessible data from the repository is the small sample that was extracted from the larger dataset. As we're in the process requesting the full scale dataset from the author, expect the analysis of the dataset will be updated soon.
+## Missing Value Analysis
+
+We analyzed the IsamasRed dataset to identify missing values across submissions and comments. We wanted to check on the accuracy and completeness of the dataset, which would affect our findings. 
+
+```{r}
+#| include: false
+
+library(tidyverse) 
+library(readr)
+library(dplyr)
+
+submissions <- read_csv("https://edav-final-project.s3.us-east-2.amazonaws.com/submissions.csv")
+comments <- read_csv("https://edav-final-project.s3.us-east-2.amazonaws.com/comments.csv")
+```
+
+```{r}
+#| echo: true
+#| results: hide
+
+missing_values_submissions <- submissions %>%
+  mutate(timestamp = as_datetime(timestamp)) %>%
+  select(subreddit, id, author, timestamp, title, text, score, upvote_ratio, upvotes) %>%  # Ensure only required attributes are selected
+  summarise(across(everything(), ~ sum(is.na(.)))) %>%
+  pivot_longer(cols = everything(), names_to = "attribute", values_to = "missing_count")
+
+ggplot(missing_values_submissions, aes(x = reorder(attribute, missing_count), y = missing_count)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  coord_flip() +
+  scale_y_continuous(
+    breaks = seq(0, max(missing_values_submissions$missing_count, na.rm = TRUE), by = 50000),
+    labels = scales::comma
+  ) +
+  labs(
+    title = "Missing Values in Submissions Data",
+    x = "Attributes",
+    y = "Count of Missing Values"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(size = 10),
+    axis.text.y = element_text(size = 10),
+    plot.title = element_text(size = 14, face = "bold"),
+    axis.title = element_text(size = 12)
+  )
+```
+
+The text field has the highest count of missing values, surpassing 250,000. This is expected since many submissions on Reddit consist only of a title without any additional text in the body. The absence of text in a large number of submissions does not hinder the analysis significantly, as the title typically captures the key content of Reddit posts. 
+All other attributes—such as upvotes, upvote_ratio, title, timestamp, subreddit, score, id, and author—have no missing values. This suggests that the dataset is complete for these attributes, which will ensure that our analysis for future engagement metrics and temporal trends are accurate.
+
+```{r}
+#| echo: true
+#| results: hide
+
+missing_values_comments <- comments %>%
+  summarise(across(everything(), ~ sum(is.na(.)))) %>%
+  pivot_longer(cols = everything(), names_to = "attribute", values_to = "missing_count")
+
+ggplot(missing_values_comments, aes(x = reorder(attribute, missing_count), y = missing_count)) +
+  geom_bar(stat = "identity", fill = "seagreen") +
+  coord_flip() +
+  labs(
+    title = "Missing Values in Comments Data",
+    x = "Attributes",
+    y = "Count of Missing Values"
+  ) +
+  theme_minimal()
+```
+The text field in the comments data has the highest number of missing values, approximately 1,500. This is expected, as some comments might not have meaningful text content (e.g., deleted or removed comments by moderators or users). This is a common occurrence on Reddit and does not significantly impact overall analysis.
+
+All other attributes, such as ups, timestamp, subreddit, submission_id, score, parent_id, id, downs, controversial, and author, show no missing values.
+
+

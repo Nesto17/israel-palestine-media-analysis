@@ -28,4 +28,6 @@ format:
     theme: lux
     code-fold: true
 
+resources:
+  - data/d3/*
 

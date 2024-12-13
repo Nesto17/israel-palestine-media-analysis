@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -150,7 +184,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description"><span class="header-section-number">2.1</span> Description</a></li>
-  <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</a></li>
+  <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.2</span> Missing Value Analysis</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/Nesto17/israel-palestine-media-analysis/edit/main/data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Nesto17/israel-palestine-media-analysis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -178,14 +212,70 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="description" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="description"><span class="header-section-number">2.1</span> Description</h2>
-<p>This project draws on the IsamasRed dataset, a compiled collection of discussions on Reddit related to the Israel-Palestine conflict. Covering the period from August to November 2023, the dataset spans approximately 400,000 conversations and over 8 million comments. Using a large language model for keyword extraction, the dataset captures relevant discourse with a high degree of precision.</p>
-<p>The data includes metadata fields such as timestamps, subreddit names, comment IDs, anonymized user IDs, comment text, and engagement metrics like upvotes and replies. The structured format allows us to analyse trends over time and across subreddits. Its temporal coverage coincides with key moments in the conflict, making it ideal for examining the evolution of narratives and misinformation.</p>
-<p>However, there are limitations to note. Reddit’s community-driven nature introduces potential bias, as discussions may reflect the dominant ideologies of specific subreddits. Additionally, some data fields, such as engagement metrics, exhibit missing values due to moderation policies or content deletions. Despite these challenges, the dataset provides a robust foundation for exploring sentiment trends, misinformation spread, and the dynamics of online discourse.</p>
-<p>To ensure a streamlined workflow, we plan to import the dataset using Python libraries such as pandas for data manipulation and sqlite3 for efficient querying. The dataset is publicly available on a GitHub repository and can be accessed via this link:</p>
+<p>For this project, we used the IsamasRed dataset, a publicly available dataset that tracks Reddit discussions on the Israel-Hamas conflict from August 2023 to November 2023. This dataset was compiled by researchers Kai Chen, Zihao He, Keith Burghardt, Jingxin Zhang, and Kristina Lerman. It includes nearly 400,000 conversations and over 8 million comments across Reddit, capturing the public discourse surrounding this event.</p>
+<p>The data collection process used a keyword extraction framework powered by GPT-4 to ensure coverage of relevant discussions. The dataset provides detailed attributes for submissions, comments, and conversations, such as subreddit names, authors, timestamps, scores, upvotes, controversy markers, and thematic labels like “FreePalestine&amp;Islamophobia” or “Zionism&amp;Antisemitism.” This structure enabled us to analyze the relationship between discussion topics, engagement patterns, and user behaviors.</p>
+<p>The data is stored in JSON format and was last updated in January 2024. Due to its large size, we contacted the authors directly to access the full dataset, as it was too big to host on our own repository. We encountered file size issues, particularly with the comments.csv file, which we addressed by resampling the data to 500,000 rows for comments and 50,000 rows for conversations. This resampling retained the time-based proportions, ensuring that trend lines remained accurate for analysis.</p>
+<p>The dataset can be accessed via</p>
+<ol type="1">
+<li>Submissions - https://edav-final-project.s3.us-east-2.amazonaws.com/submissions.csv</li>
+<li>Comments - https://edav-final-project.s3.us-east-2.amazonaws.com/comments.csv</li>
+<li>Comments - https://edav-final-project.s3.us-east-2.amazonaws.com/conversations.csv</li>
+</ol>
 </section>
 <section id="missing-value-analysis" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</h2>
-<p>The <a href="https://github.com/kaichen23/israel-hamas?tab=readme-ov-file">main source</a> of the web-scraped Reddit conversations are not entirely publicized by the author. The only accessible data from the repository is the small sample that was extracted from the larger dataset. As we’re in the process requesting the full scale dataset from the author, expect the analysis of the dataset will be updated soon.</p>
+<h2 data-number="2.2" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.2</span> Missing Value Analysis</h2>
+<p>We analyzed the IsamasRed dataset to identify missing values across submissions and comments. We wanted to check on the accuracy and completeness of the dataset, which would affect our findings.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># missing_values_submissions &lt;- submissions %&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(timestamp = as_datetime(timestamp)) %&gt;%  </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(subreddit, id, author, timestamp, title, text, score, upvote_ratio, upvotes) %&gt;%  # Ensure only required attributes are selected</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarise(across(everything(), ~ sum(is.na(.)))) %&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   pivot_longer(cols = everything(), names_to = "attribute", values_to = "missing_count")</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(missing_values_submissions, aes(x = reorder(attribute, missing_count), y = missing_count)) +</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_bar(stat = "identity", fill = "steelblue") +</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   coord_flip() +</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   scale_y_continuous(</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#     breaks = seq(0, max(missing_values_submissions$missing_count, na.rm = TRUE), by = 50000),</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#     labels = scales::comma</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) +</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   labs(</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#     title = "Missing Values in Submissions Data",</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     x = "Attributes",</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     y = "Count of Missing Values"</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) +</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_minimal() +</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#     axis.text.x = element_text(size = 10),</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#     axis.text.y = element_text(size = 10),</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#     plot.title = element_text(size = 14, face = "bold"),</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#     axis.title = element_text(size = 12)</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The text field has the highest count of missing values, surpassing 250,000. This is expected since many submissions on Reddit consist only of a title without any additional text in the body. The absence of text in a large number of submissions does not hinder the analysis significantly, as the title typically captures the key content of Reddit posts. All other attributes—such as upvotes, upvote_ratio, title, timestamp, subreddit, score, id, and author—have no missing values. This suggests that the dataset is complete for these attributes, which will ensure that our analysis for future engagement metrics and temporal trends are accurate.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># missing_values_comments &lt;- comments %&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarise(across(everything(), ~ sum(is.na(.)))) %&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   pivot_longer(cols = everything(), names_to = "attribute", values_to = "missing_count")</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(missing_values_comments, aes(x = reorder(attribute, missing_count), y = missing_count)) +</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_bar(stat = "identity", fill = "seagreen") +</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   coord_flip() +</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   labs(</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     title = "Missing Values in Comments Data",</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#     x = "Attributes",</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#     y = "Count of Missing Values"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) +</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_minimal()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The text field in the comments data has the highest number of missing values, approximately 1,500. This is expected, as some comments might not have meaningful text content (e.g., deleted or removed comments by moderators or users). This is a common occurrence on Reddit and does not significantly impact overall analysis.</p>
+<p>All other attributes, such as ups, timestamp, subreddit, submission_id, score, parent_id, id, downs, controversial, and author, show no missing values.</p>
 
 
 </section>

@@ -4,9 +4,34 @@
   * {
     font-family: sans-serif;
   }
+  .tooltip {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    font-size: 12px;
+    pointer-events: none;
+  }
+  #addButton, #removeButton {
+    border-radius: 6px;
+    border: 0;
+    background-color: #efefef;
+    color: #454545;
+    padding: 10px 30px;
+    transition: opacity 200ms;
+  }
+  #addButton:hover, #removeButton:hover {
+    opacity: 0.5;
+  }
+}
 </style> 
 
-<div id="plot">
+<h3>Temporal Chart of Comment Count for Popular Subreddits</h3>
+<div id="plot"></div>
+
+<div>
+  <button id="addButton">Add Subreddit</button>
+  <button id="removeButton">Remove Subreddit</button>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
