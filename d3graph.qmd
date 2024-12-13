@@ -34,7 +34,15 @@
   <button id="removeButton">Remove Least Popular Subreddit</button>
 </div>
 
-An interactive temporal chart of comments volume per subreddit helps analyze your project by visualizing spikes and dips in comment activity over time highlights key events and changes in interest. It helps us in comparing subreddits to uncover which are most active within the scope of this political and humanitarian conflict
+An interactive temporal chart of comments volume per subreddit provides a powerful lens through which we can observe the dynamics of online discussions. By visualizing spikes and dips in comment activity over time, we can identify key events and changes in interest. The interactivity further enhances its utility, particularly when comparing subreddits, revealing insights crucial not only to this project but also with implications for future research and decision-making.
+
+Reddit is an ideal platform for such analysis as it fosters diverse and often unfiltered discussions, bringing together global perspectives on complex topics like the Israel-Palestine conflict. Its subreddit structure allows us to explore how different communities process, react to, and discuss these challenging issues in real time.
+
+This interactive graph allows us to explore the data dynamically by adding or removing subreddits. This flexibility helps us focus on specific subreddits or trends rather than being overwhelmed by all the information at once. For example, by removing the least popular subreddit, we can declutter the graph and emphasize key platforms, while adding the next most popular subreddit reveals additional layers of data. This adaptability makes the graph clearer and more relevant to our analysis.
+
+The use of D3.js enhances the graph with smooth transitions and responsive updates when we interact with it. Key events, such as “Hamas Attack” or “Truce Extended,” are clearly marked, helping us quickly understand how these events impact comment volumes. Unlike a static graph, this visualization lets us actively engage with the data by clicking or hovering over elements, making it easier to uncover patterns and relationships.
+
+Ultimately, this visualization transforms a fixed graph into an interactive tool, allowing us to analyze trends and changes in subreddit activity in a way that is both clear and actionable. By facilitating a deeper understanding of how different subreddits react to major events over time, it serves as an invaluable resource for uncovering patterns, relationships, and narratives in online discussions.
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="scripts/myscript.js"></script>
