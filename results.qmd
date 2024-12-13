@@ -101,7 +101,7 @@ Submission activity remained elevated through October, even as unique user count
 
 Both metrics begin to decline post-November, reflecting reduced activity as public interest waned, likely due to the normalization of the conflict or shifts in media coverage. The difference in the slopes of the two lines indicates that while fewer unique users contributed to the conversation, those who remained were responsible for a substantial number of posts.
 
-Overall, both submissions (red) and unique users (blue) show a dramatic rise starting October 7, 2023, corresponding to the Hamas surprise attack on Israel. The increase in unique users suggests the event attracted a broader audience, including those who might not typically engage with Israel-Palestine discussions.
+Overall, both submissions (dark blue) and unique users (light blue) show a dramatic rise starting October 7, 2023, corresponding to the Hamas surprise attack on Israel. The increase in unique users suggests the event attracted a broader audience, including those who might not typically engage with Israel-Palestine discussions.
 
 Submission activity remained elevated through October, even as unique user counts started to stabilize. This suggests that while overall participation plateaued, a subset of highly engaged users continued driving discussions.
 
@@ -316,7 +316,7 @@ The majority of submissions receive fewer than 5 comments, as evidenced by the s
 
 A small but significant portion of submissions receives 30 or more comments, suggesting highly engaging or polarizing content that sparks extended discussions. This long tail reflects the disproportionate impact of certain posts in driving conversations.
 
-We used a logarithmic scale on the y-axis to highlight the exponential drop in frequency as comment counts increase. Without this transformation, the disparity between low-comment and high-comment submissions would be even more pronounced.
+We used a logarithmic scale on the y-axis to highlight the exponential drop in frequency as comment counts increase. Without this transformation, the disparity between low-comment and high-comment submissions would be less pronounced.
 
 ### Finding Largest Subreddits by Submissions and Comments Count 
 
@@ -547,7 +547,8 @@ subsets <- conversations %>%
     freepalestine_islamophobia == 1 & zionism_antisemitism == 1 ~ "Two-Sided"
   )) %>%
   group_by(subreddit, subset) %>%
-  summarise(count = n(), .groups = 'drop')
+  summarise(count = n(), .groups = 'drop') %>%
+  mutate(subreddit = reorder(subreddit, -count, sum))
 
 ggplot(subsets, aes(x = subreddit, y = count, fill = subset)) +
   geom_bar(stat = "identity", position = "dodge") +
@@ -579,7 +580,8 @@ subsets <- conversations %>%
     freepalestine_islamophobia == 1 & zionism_antisemitism == 1 ~ "Two-Sided"
   )) %>%
   group_by(subreddit, subset) %>%
-  summarise(count = n(), .groups = 'drop')
+  summarise(count = n(), .groups = 'drop') %>% 
+  mutate(subreddit = reorder(subreddit, -count, sum))
 
 ggplot(subsets, aes(x = subreddit, y = count, fill = subset)) +
   geom_bar(stat = "identity", position = "dodge") +
@@ -637,4 +639,4 @@ ggplot(mosaic_data, aes(x = subset, y = as.factor(controversial), fill = count))
   )
 ```
 
-The mosaic plot shows that "Non-Related" topics dominate conversations, with most comments being non-controversial. Controversial comments are sparse across all topics, and related topics like "Zionism&Antisemitism" and "Two-Sided" have significantly fewer conversations overall. "Controversial" comments (1) are sparse across all conversation topics, suggesting limited polarizing discussions.
+The mosaic plot shows that "Non-Related" topics dominate conversations, with most comments being non-controversial. Controversial comments are sparse across all topics, and related topics like "Zionism&Antisemitism" and "Two-Sided" have significantly fewer conversations overall. "Controversial" comments are sparse across all conversation topics, suggesting limited polarizing discussions.

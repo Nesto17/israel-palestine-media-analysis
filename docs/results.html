@@ -324,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Overall, both submissions (dark blue) and unique users (light blue) show a dramatic rise starting October 7, 2023, corresponding to the Hamas surprise attack on Israel. The increase in unique users suggests the event attracted a broader audience, including those who might not typically engage with Israel-Palestine discussions.</p>
 <p>Submission activity remained elevated through October, even as unique user counts started to stabilize. This suggests that while overall participation plateaued, a subset of highly engaged users continued driving discussions.</p>
 <p>Both metrics begin to decline post-November, reflecting reduced activity as public interest waned, likely due to the normalization of the conflict or shifts in media coverage. The difference in the slopes of the two lines indicates that while fewer unique users contributed to the conversation, those who remained were responsible for a substantial number of posts.</p>
-<p>Overall, both submissions (red) and unique users (blue) show a dramatic rise starting October 7, 2023, corresponding to the Hamas surprise attack on Israel. The increase in unique users suggests the event attracted a broader audience, including those who might not typically engage with Israel-Palestine discussions.</p>
+<p>Overall, both submissions (dark blue) and unique users (light blue) show a dramatic rise starting October 7, 2023, corresponding to the Hamas surprise attack on Israel. The increase in unique users suggests the event attracted a broader audience, including those who might not typically engage with Israel-Palestine discussions.</p>
 <p>Submission activity remained elevated through October, even as unique user counts started to stabilize. This suggests that while overall participation plateaued, a subset of highly engaged users continued driving discussions.</p>
 <p>Both metrics begin to decline post-November, reflecting reduced activity as public interest waned, likely due to the normalization of the conflict or shifts in media coverage. The difference in the slopes of the two lines indicates that while fewer unique users contributed to the conversation, those who remained were responsible for a substantial number of posts.</p>
 </section>
@@ -546,7 +546,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The majority of submissions receive fewer than 5 comments, as evidenced by the sharp drop in frequency for higher comment counts. This indicates that most posts generate limited discussion, reflecting either lower visibility or less engaging content.</p>
 <p>A small but significant portion of submissions receives 30 or more comments, suggesting highly engaging or polarizing content that sparks extended discussions. This long tail reflects the disproportionate impact of certain posts in driving conversations.</p>
-<p>We used a logarithmic scale on the y-axis to highlight the exponential drop in frequency as comment counts increase. Without this transformation, the disparity between low-comment and high-comment submissions would be even more pronounced.</p>
+<p>We used a logarithmic scale on the y-axis to highlight the exponential drop in frequency as comment counts increase. Without this transformation, the disparity between low-comment and high-comment submissions would be less pronounced.</p>
 </section>
 <section id="finding-largest-subreddits-by-submissions-and-comments-count" class="level3" data-number="3.2.9">
 <h3 data-number="3.2.9" class="anchored" data-anchor-id="finding-largest-subreddits-by-submissions-and-comments-count"><span class="header-section-number">3.2.9</span> Finding Largest Subreddits by Submissions and Comments Count</h3>
@@ -798,22 +798,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    freepalestine_islamophobia <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> zionism_antisemitism <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Two-Sided"</span></span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(subreddit, subset) <span class="sc">%&gt;%</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(subsets, <span class="fu">aes</span>(<span class="at">x =</span> subreddit, <span class="at">y =</span> count, <span class="at">fill =</span> subset)) <span class="sc">+</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Conversation Topics by Popular Subreddits"</span>,</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Subreddits"</span>,</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Conversations"</span>,</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Topic"</span>) <span class="sc">+</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FreePalestine&amp;Islamophobia"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>,</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Zionism&amp;Antisemitism"</span> <span class="ot">=</span> <span class="st">"brown3"</span>,</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Non-Related"</span> <span class="ot">=</span> <span class="st">"cornflowerblue"</span>,</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Two-Sided"</span> <span class="ot">=</span> <span class="st">"gray"</span></span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">subreddit =</span> <span class="fu">reorder</span>(subreddit, <span class="sc">-</span>count, sum))</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(subsets, <span class="fu">aes</span>(<span class="at">x =</span> subreddit, <span class="at">y =</span> count, <span class="at">fill =</span> subset)) <span class="sc">+</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Conversation Topics by Popular Subreddits"</span>,</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Subreddits"</span>,</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Conversations"</span>,</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Topic"</span>) <span class="sc">+</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FreePalestine&amp;Islamophobia"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>,</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Zionism&amp;Antisemitism"</span> <span class="ot">=</span> <span class="st">"brown3"</span>,</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Non-Related"</span> <span class="ot">=</span> <span class="st">"cornflowerblue"</span>,</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Two-Sided"</span> <span class="ot">=</span> <span class="st">"gray"</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -835,21 +836,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    freepalestine_islamophobia <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> zionism_antisemitism <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Two-Sided"</span></span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(subreddit, subset) <span class="sc">%&gt;%</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(subsets, <span class="fu">aes</span>(<span class="at">x =</span> subreddit, <span class="at">y =</span> count, <span class="at">fill =</span> subset)) <span class="sc">+</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Conversation Topics by Popular Subreddits"</span>,</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Subreddits"</span>,</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Conversations"</span>,</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Topic"</span>) <span class="sc">+</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FreePalestine&amp;Islamophobia"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>,</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Zionism&amp;Antisemitism"</span> <span class="ot">=</span> <span class="st">"brown3"</span>,</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Two-Sided"</span> <span class="ot">=</span> <span class="st">"gray"</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">subreddit =</span> <span class="fu">reorder</span>(subreddit, <span class="sc">-</span>count, sum))</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(subsets, <span class="fu">aes</span>(<span class="at">x =</span> subreddit, <span class="at">y =</span> count, <span class="at">fill =</span> subset)) <span class="sc">+</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of Conversation Topics by Popular Subreddits"</span>,</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Subreddits"</span>,</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Conversations"</span>,</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Topic"</span>) <span class="sc">+</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FreePalestine&amp;Islamophobia"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>,</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Zionism&amp;Antisemitism"</span> <span class="ot">=</span> <span class="st">"brown3"</span>,</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Two-Sided"</span> <span class="ot">=</span> <span class="st">"gray"</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -904,7 +906,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The mosaic plot shows that “Non-Related” topics dominate conversations, with most comments being non-controversial. Controversial comments are sparse across all topics, and related topics like “Zionism&amp;Antisemitism” and “Two-Sided” have significantly fewer conversations overall. “Controversial” comments (1) are sparse across all conversation topics, suggesting limited polarizing discussions.</p>
+<p>The mosaic plot shows that “Non-Related” topics dominate conversations, with most comments being non-controversial. Controversial comments are sparse across all topics, and related topics like “Zionism&amp;Antisemitism” and “Two-Sided” have significantly fewer conversations overall. “Controversial” comments are sparse across all conversation topics, suggesting limited polarizing discussions.</p>
 
 
 </section>
