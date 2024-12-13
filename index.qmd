@@ -5,6 +5,7 @@ This project examines how Reddit users engaged with the Israel-Hamas conflict du
 We're also interested in using data visualization to better understand modern conflicts. Social media plays a significant role in influencing political discourse and shaping geopolitics, and this project focuses on Reddit as a case study to explore its role in framing narratives around the Israel-Hamas conflict. The conflict, which escalated after a surprise attack by Hamas on October 7, 2023, has received substantial media attention, sparking global debates and emotional responses. We wanted to go beyond surface-level observations and examine the data behind this discourse, uncovering any unique trends or insights.
 
 To achieve this, we explored the following topics during the project:
+
 1. Daily Trends in Submissions and Engagement: Analyzing how the volume of submissions and unique user activity fluctuated over time, especially around key events in the conflict.
 2. Submissions by Subreddit: Comparing how different subreddits—such as Israel, Palestine, and worldnews—engaged with the conflict.
 3. User Activity and Upvotes: Investigating correlations between user activity and total upvotes to identify patterns of engagement.

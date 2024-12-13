@@ -4,6 +4,13 @@ const height = 400 - margin.top - margin.bottom;
 
 let maxSubreddits = 5;
 
+// Key events to highlight
+const events = [
+  { date: new Date("2023-10-07"), event: "Hamas Attack" },
+  { date: new Date("2023-11-22"), event: "Temporary Truce" },
+  { date: new Date("2023-11-30"), event: "Truce Extended" },
+];
+
 d3.json("data/d3/linechart_data.json").then(data => {
   data.forEach(d => {
     d.date = new Date(d.date);
@@ -33,9 +40,13 @@ d3.json("data/d3/linechart_data.json").then(data => {
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
+  // X-axis with rotated labels
   svg.append("g")
     .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(x));
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+    .attr("transform", "rotate(-30)") // Rotate labels
+    .style("text-anchor", "end"); // Adjust alignment
 
   svg.append("g").call(d3.axisLeft(y));
 
@@ -52,6 +63,28 @@ d3.json("data/d3/linechart_data.json").then(data => {
     .style("padding", "5px")
     .style("pointer-events", "none")
     .style("opacity", 0);
+
+  // Add vertical event lines with vertical labels
+  events.forEach(event => {
+    svg.append("line")
+      .attr("x1", x(event.date))
+      .attr("x2", x(event.date))
+      .attr("y1", 0)
+      .attr("y2", height)
+      .attr("stroke", "red")
+      .attr("stroke-width", 1.5)
+      .style("stroke-dasharray", "4,4");
+
+    // Add vertical event labels
+    svg.append("text")
+      .attr("x", x(event.date) - 5)
+      .attr("y", 10)
+      .attr("transform", `rotate(-90,${x(event.date) - 5},10)`) // Rotate vertically
+      .attr("fill", "red")
+      .style("font-size", "12px")
+      .style("text-anchor", "end") // Align vertically
+      .text(event.event);
+  });
 
   function updateChart() {
     svg.selectAll(".line").remove();
