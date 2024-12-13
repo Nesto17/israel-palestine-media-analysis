@@ -5,6 +5,8 @@
 
 /.quarto/
 analysis.Rmd
-data/
+data/comments.csv
+data/conversations.csv
+data/submissions.csv
 _site/
 _site_libs/
