@@ -2,11 +2,11 @@
 
 ## Description
 
-For this project, we used the IsamasRed dataset, a publicly available dataset that tracks Reddit discussions on the Israel-Hamas conflict from August 2023 to November 2023. This dataset was compiled by researchers Kai Chen, Zihao He, Keith Burghardt, Jingxin Zhang, and Kristina Lerman. It includes nearly 400,000 conversations and over 8 million comments across Reddit, capturing the public discourse surrounding this event.
+For this project, we used the IsamasRed dataset, a publicly available dataset that tracks Reddit discussions on the Israel-Hamas conflict from August 2023 to November 2023. This dataset was compiled by researchers Kai Chen, Zihao He, Keith Burghardt, Jingxin Zhang, and Kristina Lerman, and was published in January 2024 [https://github.com/kaichen23/israel-hamas]. It includes nearly 400,000 conversations and over 8 million comments across Reddit, capturing the public discourse surrounding this event.
 
 The data collection process used a keyword extraction framework powered by GPT-4 to ensure coverage of relevant discussions. The dataset provides detailed attributes for submissions, comments, and conversations, such as subreddit names, authors, timestamps, scores, upvotes, controversy markers, and thematic labels like “FreePalestine&Islamophobia” or “Zionism&Antisemitism.” This structure enabled us to analyze the relationship between discussion topics, engagement patterns, and user behaviors.
 
-The data is stored in JSON format and was last updated in January 2024. Due to its large size, we contacted the authors directly to access the full dataset, as it was too big to host on our own repository. We encountered file size issues, particularly with the comments.csv file, which we addressed by resampling the data to 500,000 rows for comments and 50,000 rows for conversations. This resampling retained the time-based proportions, ensuring that trend lines remained accurate for analysis. 
+The data is stored in JSON format and was last updated in January 2024. Due to its large size, we contacted the authors directly to access the full dataset, as it was too big to host on our own repository. We encountered file size issues, particularly with the comments.csv file, which we addressed by resampling the data to 500,000 rows for comments and 50,000 rows for conversations. This resampling retained the time-based proportions, ensuring that trend lines remained accurate for analysis.
 
 The dataset can be accessed via
 
@@ -85,4 +85,10 @@ The text field in the comments data has the highest number of missing values, ap
 
 All other attributes, such as ups, timestamp, subreddit, submission_id, score, parent_id, id, downs, controversial, and author, show no missing values.
 
+
+We wanted to analyse any missing values in the dataset to check the quality and reliability of our analysis using the dataset. For this project, we assessed the missing values in the submissions and comments datasets to identify any patterns and evaluate their impact on the analysis.
+
+The submissions dataset contained a significant number of missing values in the text field, with over 250,000 entries lacking supplemental text for titles. This is not unexpected, as many Reddit posts only include a title without additional body text. However, all other key attributes—such as subreddit, id, author, timestamp, title, score, upvote_ratio, and upvotes—were complete, ensuring that the engagement metrics and temporal trends we wanted to focus on could be analyzed without issues. 
+
+In the comments dataset, the text field also exhibited missing values, with approximately 1,500 entries affected. This is likely due to deleted or removed comments, which is common on Reddit. Attributes such as ups, downs, score, timestamp, subreddit, and author were fully populated, ensuring that engagement trends and user activity could be analyzed. This did not significantly hinder our analysis in this project as we were focused on exploratory data analysis instead of modelling for sentiment and content analysis.
 
